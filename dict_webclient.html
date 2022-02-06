@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Dictionary web interface</title>
+<script>
+
+
+function get_meaning(word)
+{
+
+
+const url = "/" + word + ".json";
+    var headers = {}
+    
+    fetch(url, {
+        method : "GET",
+        mode: 'cors',
+        headers: headers
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error(response.error)
+        }
+        return response.json();
+    })
+    .then(data => {
+	//alert(data.data);
+	//mydata=data.data.replace(/\n/g,"<br/>");
+	mydata=data.data;
+	// replaces all occurances of \n with <br/>
+	//console.log(mydata);
+	window.document.getElementById("output").innerHTML=mydata;
+        
+    })
+    .catch(function(error) {
+	alert(error);
+       
+    });
+}
+
+function mysearch()
+{
+	//alert("mysearch");
+	given_word=window.document.getElementById("given_word").value;
+	//alert("word="+ given_word);
+	get_meaning(given_word);
+}
+
+</script>
+</head>
+<body>
+
+	<input id="given_word" name="given_word" type="text"> </input>
+	<button onclick="mysearch();">SEARCH</button>
+<br/><br/>
+<p1 id="output"></p1>
+</body>
+</html>
